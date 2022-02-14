@@ -23,6 +23,7 @@ Run from IntelliJ
 ```
 Request
 -------
+
 POST /restapi/v1/player/score HTTP1
 Body:
 {
@@ -38,7 +39,7 @@ Response
     "status": "OK",
     "result": {
         "id": 1,
-        "player": "ashok",
+        "player": "john",
         "score": 8,
         "time": "2022-02-10T11:40:03"
     },
@@ -60,7 +61,7 @@ Response
     "status": "OK",
     "result": {
         "id": 1,
-        "player": "ashok",
+        "player": "john",
         "score": 8,
         "time": "2022-02-10T11:40:03"
     },
@@ -81,5 +82,49 @@ Response
     "status": "OK",
     "result": "deleted score with id 1",
     "timestamp": "2022-02-13T11:43:18.398"
+}
+```
+
+### Get list of scores
+
+```
+Request
+-------
+GET /restapi/v1/player/scores
+
+Parameters
+----------
+players : array[string]
+afterDate : [string]
+beforeDate : [string]
+pagination
+page : integer (page number)
+size : integer (page size)
+
+Examples
+--------
+
+GET /restapi/v1/player/scores?players='john','king'&beforeDate='2022-02-14 09:00:00'&afterDate='2022-02-14 23:0:00'
+GET /restapi/v1/player/scores?players='john'&size=5&page=0
+
+Response
+--------
+{
+  "message": "string",
+  "result": {
+    "pageNumber": 0,
+    "pageSize": 0,
+    "scores": [
+      {
+        "id": 0,
+        "player": "string",
+        "score": 0,
+        "time": "2022-02-14T04:19:35.895Z"
+      }
+    ],
+    "totalElements": 0
+  },
+  "status": "100 CONTINUE",
+  "timestamp": "2022-02-14T04:19:35.895Z"
 }
 ```

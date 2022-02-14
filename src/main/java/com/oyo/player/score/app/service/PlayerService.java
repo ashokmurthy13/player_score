@@ -1,21 +1,22 @@
 package com.oyo.player.score.app.service;
 
 import com.oyo.player.score.app.exception.ScoreBaseException;
-import com.oyo.player.score.app.model.AddScoreRequest;
-import com.oyo.player.score.app.model.RestResponse;
-import com.oyo.player.score.app.model.ScoreInfo;
-import com.oyo.player.score.app.model.ScoreResponse;
+import com.oyo.player.score.app.model.*;
 import com.oyo.player.score.app.repository.ScoreRepository;
 import com.oyo.player.score.app.util.ResponseBuilder;
 import com.oyo.player.score.app.validation.ValidateRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -64,5 +65,32 @@ public class PlayerService {
             throw new ScoreBaseException("score not found for the id " + scoreId);
         }
         return new RestResponse<>("deleted score with id " + scoreId, HttpStatus.OK);
+    }
+
+    public RestResponse<PageResult> getAllScores(List<String> players, String beforeDate, String afterDate, Integer size, Integer page, Pageable pageable) {
+        List<ScoreInfo> scoreInfoList;
+        if (players != null && !players.isEmpty() && StringUtils.hasText(beforeDate) && StringUtils.hasText(afterDate)) {
+            validateRequest.validateDate(beforeDate, afterDate);
+            scoreInfoList = scoreRepository.findScoreByAllFields(players, beforeDate, afterDate);
+        } else if (players != null && !players.isEmpty() && StringUtils.hasText(beforeDate)) {
+            scoreInfoList = scoreRepository.findScoresByBeforeDate(players, beforeDate);
+        } else if (players != null && !players.isEmpty() && StringUtils.hasText(afterDate)) {
+            scoreInfoList = scoreRepository.findScoresByAfterDate(players, afterDate);
+        } else if (StringUtils.hasText(beforeDate) && StringUtils.hasText(afterDate)) {
+            validateRequest.validateDate(beforeDate, afterDate);
+            scoreInfoList = scoreRepository.findScoreByDate(beforeDate, afterDate);
+        } else if(StringUtils.hasText(beforeDate)) {
+            scoreInfoList = scoreRepository.findScoreByBeforeDate(beforeDate);
+        }else if(StringUtils.hasText(afterDate)) {
+            scoreInfoList = scoreRepository.findScoreByAfterDate(afterDate);
+        }
+        else if (players != null && !players.isEmpty() && size != null && page != null) {
+            scoreInfoList = scoreRepository.findByNames(players, pageable);
+        } else  {
+            scoreInfoList = scoreRepository.getAllScores(pageable);
+        }
+        List<ScoreResponse> response = new ArrayList<>();
+        scoreInfoList.forEach(score -> response.add(ResponseBuilder.build(score)));
+        return new RestResponse<>(new PageResult(response, pageable.getPageNumber(), size != null ? size : pageable.getPageSize(), response.size()), HttpStatus.OK);
     }
 }
