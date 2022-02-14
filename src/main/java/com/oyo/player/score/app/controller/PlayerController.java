@@ -1,9 +1,6 @@
 package com.oyo.player.score.app.controller;
 
-import com.oyo.player.score.app.model.AddScoreRequest;
-import com.oyo.player.score.app.model.PageResult;
-import com.oyo.player.score.app.model.RestResponse;
-import com.oyo.player.score.app.model.ScoreResponse;
+import com.oyo.player.score.app.model.*;
 import com.oyo.player.score.app.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -42,5 +39,10 @@ public class PlayerController {
                                               @RequestParam(value = "page", required = false) Integer page,
                                               @PageableDefault Pageable pageable) {
         return playerService.getAllScores(players, beforeDate, afterDate, size, page, pageable);
+    }
+
+    @GetMapping("history")
+    public RestResponse<PlayerHistory> getPlayersHistory(@RequestParam("player") String player) {
+        return playerService.getPlayersHistory(player);
     }
 }

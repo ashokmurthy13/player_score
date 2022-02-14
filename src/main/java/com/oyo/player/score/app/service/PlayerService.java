@@ -79,18 +79,38 @@ public class PlayerService {
         } else if (StringUtils.hasText(beforeDate) && StringUtils.hasText(afterDate)) {
             validateRequest.validateDate(beforeDate, afterDate);
             scoreInfoList = scoreRepository.findScoreByDate(beforeDate, afterDate);
-        } else if(StringUtils.hasText(beforeDate)) {
+        } else if (StringUtils.hasText(beforeDate)) {
             scoreInfoList = scoreRepository.findScoreByBeforeDate(beforeDate);
-        }else if(StringUtils.hasText(afterDate)) {
+        } else if (StringUtils.hasText(afterDate)) {
             scoreInfoList = scoreRepository.findScoreByAfterDate(afterDate);
-        }
-        else if (players != null && !players.isEmpty() && size != null && page != null) {
+        } else if (players != null && !players.isEmpty() && size != null && page != null) {
             scoreInfoList = scoreRepository.findByNames(players, pageable);
-        } else  {
+        } else {
             scoreInfoList = scoreRepository.getAllScores(pageable);
         }
         List<ScoreResponse> response = new ArrayList<>();
         scoreInfoList.forEach(score -> response.add(ResponseBuilder.build(score)));
         return new RestResponse<>(new PageResult(response, pageable.getPageNumber(), size != null ? size : pageable.getPageSize(), response.size()), HttpStatus.OK);
+    }
+
+    public RestResponse<PlayerHistory> getPlayersHistory(String player) {
+        player = player.toLowerCase();
+        ScoreInfo topScore = scoreRepository.getTopScore(player);
+        ScoreInfo lowScore = scoreRepository.getLowScore(player);
+        Double avgScore = scoreRepository.getAvgScore(player);
+        List<ScoreInfo> scoreList = scoreRepository.getPlayerHistory(player);
+        PlayerHistory playerHistory = new PlayerHistory();
+        Score top = new Score(topScore.getScore(), topScore.getTime());
+        Score low = new Score(lowScore.getScore(), lowScore.getTime());
+        playerHistory.setTopScore(top);
+        playerHistory.setLowScore(low);
+        playerHistory.setAvgScore(avgScore);
+        List<Score> scores = new ArrayList<>();
+        scoreList.forEach(scoreData -> {
+            Score score = new Score(scoreData.getScore(), scoreData.getTime());
+            scores.add(score);
+        });
+        playerHistory.setScores(scores);
+        return new RestResponse<>(playerHistory, HttpStatus.OK);
     }
 }

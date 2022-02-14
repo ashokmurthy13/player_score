@@ -37,4 +37,16 @@ public interface ScoreRepository extends JpaRepository<ScoreInfo, Long> {
 
     @Query(value = "select * from score where time > :afterDate", nativeQuery = true)
     List<ScoreInfo> findScoreByAfterDate(String afterDate);
+
+    @Query(value = "select * from score where player = :player", nativeQuery = true)
+    List<ScoreInfo> getPlayerHistory(String player);
+
+    @Query(value = "select * from score where player = :player and score = (select max(score) from score where player = :player)", nativeQuery = true)
+    ScoreInfo getTopScore(@Param("player") String player);
+
+    @Query(value = "select * from score where player = :player and score = (select min(score) from score where player = :player)", nativeQuery = true)
+    ScoreInfo getLowScore(@Param("player") String player);
+
+    @Query(value = "select avg(score) from score where player = :player", nativeQuery = true)
+    Double getAvgScore(@Param("player") String player);
 }

@@ -128,3 +128,37 @@ Response
   "timestamp": "2022-02-14T04:19:35.895Z"
 }
 ```
+
+### Get Players History
+
+```
+Request
+-------
+
+GET /restapi/v1/player/history?player=string
+
+Response
+--------
+{
+  "message": "string",
+  "result": {
+    "avgScore": 0,
+    "lowScore": {
+      "score": 0,
+      "time": "2022-02-14T07:40:26.446Z"
+    },
+    "scores": [
+      {
+        "score": 0,
+        "time": "2022-02-14T07:40:26.446Z"
+      }
+    ],
+    "topScore": {
+      "score": 0,
+      "time": "2022-02-14T07:40:26.446Z"
+    }
+  },
+  "status": "100 CONTINUE",
+  "timestamp": "2022-02-14T07:40:26.446Z"
+}
+```
