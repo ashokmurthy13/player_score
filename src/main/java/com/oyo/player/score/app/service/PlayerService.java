@@ -31,7 +31,7 @@ public class PlayerService {
     private final @NonNull ScoreRepository scoreRepository;
 
     public RestResponse<ScoreResponse> save(AddScoreRequest addScoreRequest) {
-        validateRequest.checkScore(addScoreRequest.getScore());
+        validateRequest.checkScore(addScoreRequest);
         try {
             String player = addScoreRequest.getPlayer().toLowerCase();
             LocalDateTime time = convertTime(addScoreRequest.getTime());
@@ -69,6 +69,8 @@ public class PlayerService {
     }
 
     public RestResponse<PageResult> getAllScores(List<String> players, String beforeDate, String afterDate, Integer size, Integer page, Pageable pageable) {
+        validateRequest.validateDateFormat(beforeDate);
+        validateRequest.validateDateFormat(afterDate);
         List<ScoreInfo> scoreInfoList;
         if (players != null && !players.isEmpty() && StringUtils.hasText(beforeDate) && StringUtils.hasText(afterDate)) {
             validateRequest.validateDate(beforeDate, afterDate);

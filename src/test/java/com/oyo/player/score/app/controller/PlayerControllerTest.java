@@ -1,10 +1,8 @@
 package com.oyo.player.score.app.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oyo.player.score.app.PlayerApplication;
 import com.oyo.player.score.app.model.RestResponse;
-import com.oyo.player.score.app.model.Score;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;

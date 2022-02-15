@@ -30,6 +30,14 @@ Go to the project path - project home folder and run either of the below command
 ### From IntelliJ IDE
 
 ```Run PlayerApplication.java file as Java Application```
+## Run Tests
+
+### Unit and Integration tests
+
+    >./gradlew test (Mac or Linux)
+    >gradle.bat test (Windows)
+
+**Test reports can be found at : build/reports/tests/test/index.html**
 
 ## APIs
 
