@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
+import java.util.Date;
 
 @ControllerAdvice
 public class ExceptionResolver {
@@ -24,7 +25,7 @@ public class ExceptionResolver {
         RestResponse<Object> response = new RestResponse<>();
         response.setMessage(e.getMessage());
         response.setStatus(HttpStatus.BAD_REQUEST);
-        response.setTimestamp(LocalDateTime.now());
+        response.setTimestamp(new Timestamp(new Date().getTime()));
         return response;
     }
 }

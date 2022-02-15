@@ -6,6 +6,15 @@ public class AddScoreRequest {
     private Integer score;
     private String time;
 
+    public AddScoreRequest() {
+    }
+
+    public AddScoreRequest(String player, Integer score, String time) {
+        this.player = player;
+        this.score = score;
+        this.time = time;
+    }
+
     public String getPlayer() {
         return player;
     }

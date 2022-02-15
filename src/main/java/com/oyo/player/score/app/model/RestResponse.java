@@ -3,7 +3,8 @@ package com.oyo.player.score.app.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.http.HttpStatus;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
+import java.util.Date;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RestResponse<T> {
@@ -11,7 +12,7 @@ public class RestResponse<T> {
     private String message;
     private HttpStatus status;
     private T result;
-    private LocalDateTime timestamp;
+    private Timestamp timestamp;
 
     public RestResponse() {
     }
@@ -20,7 +21,7 @@ public class RestResponse<T> {
         this.message = "success";
         this.status = status;
         this.result = result;
-        this.timestamp = LocalDateTime.now();
+        this.timestamp = new Timestamp(new Date().getTime());
     }
 
     public String getMessage() {
@@ -47,11 +48,11 @@ public class RestResponse<T> {
         this.result = result;
     }
 
-    public LocalDateTime getTimestamp() {
+    public Timestamp getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
 }

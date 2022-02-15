@@ -5,9 +5,10 @@ import com.oyo.player.score.app.model.*;
 import com.oyo.player.score.app.repository.ScoreRepository;
 import com.oyo.player.score.app.util.ResponseBuilder;
 import com.oyo.player.score.app.validation.ValidateRequest;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -20,22 +21,22 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class PlayerService {
 
     private static final Logger LOG = LoggerFactory.getLogger(PlayerService.class);
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    @Autowired
-    private ValidateRequest validateRequest;
-
-    @Autowired
-    private ScoreRepository scoreRepository;
+    private final @NonNull ValidateRequest validateRequest;
+    private final @NonNull ScoreRepository scoreRepository;
 
     public RestResponse<ScoreResponse> save(AddScoreRequest addScoreRequest) {
         validateRequest.checkScore(addScoreRequest.getScore());
         try {
             String player = addScoreRequest.getPlayer().toLowerCase();
-            ScoreInfo score = scoreRepository.save(new ScoreInfo(player, addScoreRequest.getScore(), convertTime(addScoreRequest.getTime())));
+            LocalDateTime time = convertTime(addScoreRequest.getTime());
+            ScoreInfo scoreInfo = new ScoreInfo(player, addScoreRequest.getScore(), time);
+            ScoreInfo score = scoreRepository.save(scoreInfo);
             return new RestResponse<>(ResponseBuilder.build(score), HttpStatus.OK);
         } catch (Exception e) {
             LOG.error("Exception while adding a score: {}", e.getMessage());

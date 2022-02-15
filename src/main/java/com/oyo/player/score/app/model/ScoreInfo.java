@@ -23,6 +23,11 @@ public class ScoreInfo {
     public ScoreInfo() {
     }
 
+    public ScoreInfo(Integer score, LocalDateTime time) {
+        this.score = score;
+        this.time = time;
+    }
+
     public ScoreInfo(String player, Integer score, LocalDateTime time) {
         this.player = player;
         this.score = score;

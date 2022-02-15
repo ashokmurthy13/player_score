@@ -2,7 +2,8 @@ package com.oyo.player.score.app.controller;
 
 import com.oyo.player.score.app.model.*;
 import com.oyo.player.score.app.service.PlayerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
@@ -11,10 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("restapi/v1/player")
+@RequiredArgsConstructor
 public class PlayerController {
 
-    @Autowired
-    private PlayerService playerService;
+    private final @NonNull PlayerService playerService;
 
     @PostMapping("/score")
     public RestResponse<ScoreResponse> createScore(@RequestBody AddScoreRequest addScoreRequest) {
