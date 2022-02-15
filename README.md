@@ -1,19 +1,33 @@
 # player_score
 
-## Build & Run
+## Build the Project
 
-### How to Build
-Go to the project path - project home folder and run the below command
+### From CommandLine
 
-```gradle build```
+Go to the project path - project home folder and run either of the below command based on the installation.
 
-### How to Run
+* If gradle is installed on your local system, please use the below command.
 
-Run from Command Line
+      >./gradle build (Mac or Linux)
+
+      > gradle.bat build (Windows)
+
+* If gradle is not installed on your local system, please use the below command.
+
+      >./gradlew build (Mac or Linux)
+     
+      > gradlew.bat build (Windows)
+
+### From IDE
+* You can use the IDE Gradle plugins to build the project
+
+## Run the Project
+
+### From Command Line
 
 ```java -jar build/libs/player_score-0.0.1-SNAPSHOT.jar```
 
-Run from IntelliJ
+### From IntelliJ IDE
 
 ```Run PlayerApplication.java file as Java Application```
 
