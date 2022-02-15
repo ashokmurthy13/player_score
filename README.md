@@ -41,21 +41,26 @@ Go to the project path - project home folder and run either of the below command
 
 ## APIs
 
-### Create Score
-```
-Request
--------
+* Swagger Documentation : http://localhost:8080/swagger-ui.html
 
-POST /restapi/v1/player/score HTTP1
+### Create Score
+#### Request
+
+```
+POST /restapi/v1/player/score
+
 Body:
 {
   "player" : "john",
   "score" : 8,
   "time": "2022-02-10 11:40:03"
 }
-
-Response
---------
+```
+```
+curl -X POST "http://localhost:8080/restapi/v1/player/score" -H "accept: */*" -H "Content-Type: application/json" -d "{ \"player\": \"ashok\", \"score\": 90, \"time\": \"2022-02-15 15:30:00\"}"
+```
+#### Response
+```
 {
     "message": "success",
     "status": "OK",
@@ -70,14 +75,16 @@ Response
 ```
 
 ### Get Score
+#### Request
+
 ```
-Request
--------
-
 GET /restapi/v1/player/score?scoreId=1
-
-Response
---------
+```
+```
+curl -X GET "http://localhost:8080/restapi/v1/player/score?scoreId=1" -H "accept: */*"
+```
+#### Response
+```
 {
     "message": "success",
     "status": "OK",
@@ -91,14 +98,15 @@ Response
 }
 ```
 ### Delete Score
+#### Request
 ```
-Request
--------
-
 DELETE /restapi/v1/player/score?scoreId=1
-
-Response
---------
+```
+```
+curl -X DELETE "http://localhost:8080/restapi/v1/player/score?scoreId=12" -H "accept: */*"
+```
+#### Response
+```
 {
     "message": "success",
     "status": "OK",
@@ -108,10 +116,9 @@ Response
 ```
 
 ### Get list of scores
+#### Request
 
 ```
-Request
--------
 GET /restapi/v1/player/scores
 
 Parameters
@@ -125,12 +132,14 @@ size : integer (page size)
 
 Examples
 --------
-
 GET /restapi/v1/player/scores?players='john','king'&beforeDate='2022-02-14 09:00:00'&afterDate='2022-02-14 23:0:00'
 GET /restapi/v1/player/scores?players='john'&size=5&page=0
-
-Response
---------
+```
+```
+curl -X GET "http://localhost:8080/restapi/v1/player/scores?afterDate=2022-02-12&beforeDate=2022-02-15&page=0&pageSize=10" -H "accept: */*"
+```
+#### Response
+```
 {
   "message": "string",
   "result": {
@@ -152,15 +161,16 @@ Response
 ```
 
 ### Get Players History
+#### Request
 
 ```
-Request
--------
-
 GET /restapi/v1/player/history?player=string
-
-Response
---------
+```
+```
+curl -X GET "http://localhost:8080/restapi/v1/player/history?player=ashok" -H "accept: */*"
+```
+#### Response
+```
 {
   "message": "string",
   "result": {
