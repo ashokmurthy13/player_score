@@ -34,8 +34,56 @@ Go to the project path - project home folder and run either of the below command
 
 ### Unit and Integration tests
 
-    >./gradlew test (Mac or Linux)
+    >./gradlew test (or) >gradle test (Mac or Linux)
     >gradle.bat test (Windows)
+
+### Sample Console output
+
+```
+ashokmurthy@Ashoks-MacBook-Pro player_score % gradle test   
+
+> Task :compileTestJava
+Note: /Users/ashokmurthy/player_score/src/test/java/integrationtests/PlayerControllerTest.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+> Task :test
+
+com.oyo.player.score.app.PlayerApplicationTest
+
+  Test contextLoads() PASSED
+
+com.oyo.player.score.app.PlayerServiceTest
+
+  Test testDeleteScoreById() PASSED
+  Test testGetPlayersHistory() PASSED
+  Test testCreateScoreException() PASSED
+  Test testFindScoreById() PASSED
+  Test testFindScoreByIdException() PASSED
+
+com.oyo.player.score.app.ValidationRequestTest
+
+  Test testNullPlayerValidation() PASSED
+  Test testScoreValidation() PASSED
+  Test testDateValidation() PASSED
+  Test testDateFormatPlayerValidation() PASSED
+
+integrationtests.PlayerControllerTest
+
+  Test testGetScorePlayer() PASSED
+  Test testGetPlayerHistory() PASSED
+  Test testGetScoreHttpStatus() PASSED
+2022-02-16 11:50:50.516  INFO 28113 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-02-16 11:50:50.517  INFO 28113 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2022-02-16 11:50:50.518  INFO 28113 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2022-02-16 11:50:50.525  INFO 28113 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-02-16 11:50:50.525  INFO 28113 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2022-02-16 11:50:50.526  INFO 28113 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+
+SUCCESS: Executed 13 tests in 3.8s
+
+
+
+```
 
 **Test reports can be found at : build/reports/tests/test/index.html**
 

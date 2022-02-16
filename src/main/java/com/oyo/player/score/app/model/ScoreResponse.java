@@ -9,6 +9,16 @@ public class ScoreResponse {
     private Integer score;
     private LocalDateTime time;
 
+    public ScoreResponse() {
+    }
+
+    public ScoreResponse(Long id, String player, Integer score, LocalDateTime time) {
+        this.id = id;
+        this.player = player;
+        this.score = score;
+        this.time = time;
+    }
+
     public Long getId() {
         return id;
     }

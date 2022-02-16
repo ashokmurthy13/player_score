@@ -15,7 +15,7 @@ public class ValidateRequest {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter FORMATTER_TIME = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public void checkScore(AddScoreRequest addScoreRequest) {
+    public void validateAddScoreRequest(AddScoreRequest addScoreRequest) {
         if (addScoreRequest.getScore() <= 0) {
             throw new ScoreBaseException("score should be greater than zero");
         }

@@ -1,21 +1,18 @@
-package com.oyo.player.score.app.controller;
+package integrationtests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oyo.player.score.app.PlayerApplication;
 import com.oyo.player.score.app.model.RestResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.LinkedHashMap;
 
 @SpringBootTest(classes = PlayerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@RunWith(SpringRunner.class)
 public class PlayerControllerTest {
 
     private static final Long scoreId = 1L;

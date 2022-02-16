@@ -31,7 +31,7 @@ public class PlayerService {
     private final @NonNull ScoreRepository scoreRepository;
 
     public RestResponse<ScoreResponse> save(AddScoreRequest addScoreRequest) {
-        validateRequest.checkScore(addScoreRequest);
+        validateRequest.validateAddScoreRequest(addScoreRequest);
         try {
             String player = addScoreRequest.getPlayer().toLowerCase();
             LocalDateTime time = convertTime(addScoreRequest.getTime());
