@@ -1,5 +1,21 @@
 # player_score
 
+* This is a simple REST API projects with basic POST, GET, DELETE methods.
+* It uses H2 in-memory database to store and retrieve the data
+* The APIs can be tested via cURL command, Postman or using Swagger
+
+## Tools Requirements
+
+The following tools are used to build this project
+
+1. Java 8 
+2. Gradle 7 
+3. Spring 5.3.12
+4. Spring Boot 2.5.6
+5. H2 in-memory database
+6. JUnit 5
+
+
 ## Build the Project
 
 ### From CommandLine
